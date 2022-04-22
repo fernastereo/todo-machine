@@ -1,10 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { TodoCounter } from './TodoCounter';
+import { TodoSearch } from './TodoSearch';
+import { TodoList } from './TodoList';
+import { TodoItem } from './TodoItem';
+import { CreateTodoButton } from './CreateTodoButton';
+// import './App.css';
+
+const todos = [
+  { text: 'Hacer Mercado', completed: false},
+  { text: 'Hacer Tareas', completed: false},
+  { text: 'Cortar el Cesped', completed: false},
+  { text: 'Crear nuevo contenido', completed: false},
+];
 
 function App() {
   return (
-    <div className="App">
-    </div>
+    <React.Fragment>
+      <TodoCounter />
+
+      <TodoSearch />
+      
+
+      <TodoList>
+        {todos.map(todo => (
+          <TodoItem key={todo.text} text={todo.text} />  
+        ))}
+      </TodoList>
+
+      <CreateTodoButton />
+      
+    </React.Fragment>
   );
 }
 
