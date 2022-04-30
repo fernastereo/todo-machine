@@ -11,7 +11,7 @@ function TodoItem(props) {
     const onDelete = () => {
         alert('se borró el todo ' + props.text);
     }
-
+    
     return (
         <li className="TodoItem">
             {props.completed ?
@@ -29,7 +29,8 @@ function TodoItem(props) {
             </p>
             <FontAwesomeIcon
                 icon={faTrashCan}
-                className='Icon Icon-delete'/>
+                className='Icon Icon-delete'
+                onClick={onDelete}/>
         </li>
     );
 }
