@@ -4,14 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck, faCircleChevronRight, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 
 function TodoItem(props) {
-    const onComplete = () => {
-        alert('se completó el todo ' + props.text);
-    }
-
-    const onDelete = () => {
-        alert('se borró el todo ' + props.text);
-    }
-    
     return (
         <li className="TodoItem">
             {props.completed ?
