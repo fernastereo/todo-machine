@@ -18,11 +18,11 @@ function TodoItem(props) {
                 <FontAwesomeIcon 
                     icon={faCircleCheck} 
                     className={`Icon Icon-check--active`}
-                    onClick={onComplete}/>
+                    onClick={props.onUncomplete}/>
             :  <FontAwesomeIcon 
                     icon={faCircleChevronRight}
                     className={`Icon`} 
-                    onClick={onComplete}/>
+                    onClick={props.onComplete}/>
             }
             <p className={`TodoItem-p ${props.completed && 'TodoItem-p--complete'}`}>
                 {props.text}
@@ -30,7 +30,7 @@ function TodoItem(props) {
             <FontAwesomeIcon
                 icon={faTrashCan}
                 className='Icon Icon-delete'
-                onClick={onDelete}/>
+                onClick={props.onDelete}/>
         </li>
     );
 }
