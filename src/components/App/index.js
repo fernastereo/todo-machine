@@ -2,32 +2,59 @@ import React from 'react';
 import { AppUI } from './AppUI';
 
 function useLocalStorage(itemName, initialValue){
-  const localStorageItem = localStorage.getItem(itemName);
-  let parsedItems;
+  const [error, setError] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
+  const [item, setItem] = React.useState(initialValue);
+  
+  React.useEffect( () => {
+    setTimeout(() => {
+      try {
+        const localStorageItem = localStorage.getItem(itemName);
+        let parsedItems;
+      
+        if (!localStorageItem) {
+          localStorage.setItem(itemName, JSON.stringify(initialValue));
+          parsedItems = initialValue;
+        }else{
+          parsedItems = JSON.parse(localStorageItem);
+        }
 
-  if (!localStorageItem) {
-    localStorage.setItem(itemName, JSON.stringify(initialValue));
-    parsedItems = initialValue;
-  }else{
-    parsedItems = JSON.parse(localStorageItem);
-  }
+        setItem(parsedItems);
+        setLoading(false);
 
-  const [item, setItem] = React.useState(parsedItems);
+      } catch (error) {
+        setError(error);
+      }
+    }, 2000);
+  })
+
 
   const saveItem = (newItem) => {
-    const stringifiedItem = JSON.stringify(newItem);
-    localStorage.setItem(itemName, stringifiedItem);
-    setItem(newItem);
+    try {
+      const stringifiedItem = JSON.stringify(newItem);
+      localStorage.setItem(itemName, stringifiedItem);
+      setItem(newItem);
+    } catch (error) {
+      setError(error);
+    }
   }
 
-  return [
+  return {
     item,
-    saveItem
-  ]
+    saveItem,
+    loading,
+    error
+  }
 }
 
 function App() {
-  const [todos, saveTodos] = useLocalStorage('TODOS_V1', []);
+  const {
+    item: todos, 
+    saveItem: saveTodos, 
+    loading,
+    error
+  } = useLocalStorage('TODOS_V1', []);
+
   const [searchValue, setSearchValue] = React.useState('');
 
   const completedTodos = todos.filter(todo => todo.completed === true).length;
@@ -44,8 +71,6 @@ function App() {
       return todoText.includes(searchText);
     })
   }
-
-
 
   const completeTodo = (text) => {
     const todoIndex = todos.findIndex(todo => todo.text === text);
@@ -70,8 +95,18 @@ function App() {
     saveTodos(newTodos);
   }
 
+  // console.log('Render antes use effect');
+
+  // React.useEffect(() => {
+  //   console.log('use effect');
+  // }, [totalTodos]);
+
+  // console.log('Render despues use effect');
+
   return (
     <AppUI 
+      loading={loading}
+      error={error}
       totalTodos={totalTodos}
       completedTodos={completedTodos}
       searchValue={searchValue}
