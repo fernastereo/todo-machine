@@ -1,5 +1,7 @@
 import React from 'react';
 import './TodoItem.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleCheck, faCircleChevronRight, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 
 function TodoItem(props) {
     const onComplete = () => {
@@ -12,21 +14,22 @@ function TodoItem(props) {
 
     return (
         <li className="TodoItem">
-            <span 
-                className={`Icon Icon-check ${props.completed && 'Icon-check--active'}`}
-                onClick={onComplete}
-            >
-                √
-            </span>
+            {props.completed ?
+                <FontAwesomeIcon 
+                    icon={faCircleCheck} 
+                    className={`Icon Icon-check--active`}
+                    onClick={onComplete}/>
+            :  <FontAwesomeIcon 
+                    icon={faCircleChevronRight}
+                    className={`Icon`} 
+                    onClick={onComplete}/>
+            }
             <p className={`TodoItem-p ${props.completed && 'TodoItem-p--complete'}`}>
                 {props.text}
             </p>
-            <span 
-                className="Icon Icon-delete"
-                onClick={onDelete}
-            >
-                X
-            </span>
+            <FontAwesomeIcon
+                icon={faTrashCan}
+                className='Icon Icon-delete'/>
         </li>
     );
 }

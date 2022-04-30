@@ -7,10 +7,10 @@ import { CreateTodoButton } from './CreateTodoButton';
 // import './App.css';
 
 const todos = [
-  { text: 'Hacer Mercado', completed: false},
-  { text: 'Hacer Tareas', completed: true},
-  { text: 'Cortar el Cesped', completed: false},
-  { text: 'Crear nuevo contenido', completed: false},
+  { text: 'Tarea numero 1', completed: false},
+  { text: 'Tarea numero 2', completed: true},
+  { text: 'Tarea numero 3', completed: false},
+  { text: 'Tarea numero 4', completed: false},
 ];
 
 function App() {
