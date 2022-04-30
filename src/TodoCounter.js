@@ -2,9 +2,10 @@ import React from 'react';
 import './TodoCounter.css';
 
 
-function TodoCounter() {
+function TodoCounter({ total, completed }) {
+
     return (
-        <h2 className="TodoCounter">Ut enim ad minim 2 de 4 veniam</h2>
+        <h2 className="TodoCounter">Ut enim ad minim {completed} de {total} veniam</h2>
     );
 }
 
